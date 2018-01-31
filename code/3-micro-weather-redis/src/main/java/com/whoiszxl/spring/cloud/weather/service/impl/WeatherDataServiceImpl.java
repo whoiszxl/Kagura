@@ -1,67 +1,27 @@
-# 使用Gradle构建SpringBoot测试项目
+package com.whoiszxl.spring.cloud.weather.service.impl;
 
-## 项目创建
-使用 `start.spring.io` 可以快速创建Gradle SpringBoot 项目
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.whoiszxl.spring.cloud.weather.service.WeatherDataService;
+import com.whoiszxl.spring.cloud.weather.vo.WeatherResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-## Eclipse Gradle插件安装
-1. eclipse中点击help，选择Install New Software
-2. 点击`ADD`按钮,name:gradle,location输入:`http://download.eclipse.org/buildship/updates/e46/milestones/2.x`,安装
-3. 还是用IDEA好了
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-## 创建天气服务的基本功能
-描述:通过使用RestTemplate来请求第三方的天气预报接口,通过ObjectMapper将请求到的json数据映射成为一个对象,再通过Controller返回给前台页面
-
-1. 天气服务的实现代码
-```java
-@Service
-public class WeatherDataServiceImpl implements WeatherDataService {
-
-    private static final String WEATHER_URI = "http://wthrcdn.etouch.cn/weather_mini?";
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Override
-    public WeatherResponse getDataByCityId(String cityId) {
-        String uri = WEATHER_URI + "citykey=" + cityId;
-        return this.doGetWeather(uri);
-    }
-
-    @Override
-    public WeatherResponse getDataByCityName(String cityName) {
-        String uri = WEATHER_URI + "city=" + cityName;
-        return this.doGetWeather(uri);
-    }
-
-
-    private WeatherResponse doGetWeather(String uri) {
-        ResponseEntity<String> responseStr = restTemplate.getForEntity(uri, String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherResponse weatherResponse = null;
-        String strBody = null;
-
-        if (responseStr.getStatusCodeValue() == 200) {
-            strBody = responseStr.getBody();
-        }
-
-        try {
-            weatherResponse = mapper.readValue(strBody, WeatherResponse.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return weatherResponse;
-
-    }
-}
-```
-
-## 使用Redis提升并发能力
-在获取第三方天气json的时候,先从redis中读取,没有读到就从第三方获取并保存到redis中
-
-1. redis代码实现
-```java
+/**
+ * \* Created with IntelliJ IDEA.
+ * \* User: whoiszxl
+ * \* Date: 2018/1/31
+ * \* Description: 获取天气信息的服务类
+ * \
+ */
 @Service
 public class WeatherDataServiceImpl implements WeatherDataService {
 
@@ -138,4 +98,3 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
     }
 }
-```
