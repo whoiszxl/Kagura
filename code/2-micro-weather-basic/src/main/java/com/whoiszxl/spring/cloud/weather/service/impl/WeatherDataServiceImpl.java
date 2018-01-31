@@ -1,18 +1,22 @@
-# 使用Gradle构建SpringBoot测试项目
+package com.whoiszxl.spring.cloud.weather.service.impl;
 
-## 项目创建
-使用 `start.spring.io` 可以快速创建Gradle SpringBoot 项目
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.whoiszxl.spring.cloud.weather.service.WeatherDataService;
+import com.whoiszxl.spring.cloud.weather.vo.WeatherResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-## Eclipse Gradle插件安装
-1. eclipse中点击help，选择Install New Software
-2. 点击`ADD`按钮,name:gradle,location输入:`http://download.eclipse.org/buildship/updates/e46/milestones/2.x`,安装
-3. 还是用IDEA好了
+import java.io.IOException;
 
-## 创建天气服务的基本功能
-描述:通过使用RestTemplate来请求第三方的天气预报接口,通过ObjectMapper将请求到的json数据映射成为一个对象,再通过Controller返回给前台页面
-
-1. 天气服务的实现代码
-```java
+/**
+ * \* Created with IntelliJ IDEA.
+ * \* User: whoiszxl
+ * \* Date: 2018/1/31
+ * \* Description: 获取天气信息的服务类
+ * \
+ */
 @Service
 public class WeatherDataServiceImpl implements WeatherDataService {
 
@@ -55,4 +59,3 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
     }
 }
-```
