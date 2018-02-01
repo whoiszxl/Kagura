@@ -36,7 +36,6 @@ sourceCompatibility = 1.8
 
 // 使用了Maven的中央仓库及Spring自己的仓库（也可以指定其他仓库）
 repositories {
-	
 	//mavenCentral()
 	maven { url "https://repo.spring.io/snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
@@ -47,12 +46,12 @@ repositories {
 // 依赖关系
 dependencies {
 
+	// HttpClient
+	compile('org.apache.httpcomponents:httpclient:4.5.3')
 
 	// 该依赖用于编译阶段
 	compile('org.springframework.boot:spring-boot-starter-web')
 
-	// 添加 Spring Boot Thymeleaf Starter 的依赖
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	// 该依赖用于测试阶段
 	testCompile('org.springframework.boot:spring-boot-starter-test')
