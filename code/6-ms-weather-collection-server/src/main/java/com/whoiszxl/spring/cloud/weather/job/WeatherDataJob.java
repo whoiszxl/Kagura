@@ -37,7 +37,7 @@ public class WeatherDataJob extends QuartzJobBean {
         try {
             cityList = new ArrayList<>();
             City city = new City();
-            city.setCityId("101280800");
+            city.setCityId("jue");
             cityList.add(city);
         } catch (Exception e) {
             logger.error("获取XML城市列表错误", e);
