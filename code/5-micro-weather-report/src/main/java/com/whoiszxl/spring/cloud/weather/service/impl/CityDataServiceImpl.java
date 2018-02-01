@@ -31,7 +31,6 @@ public class CityDataServiceImpl implements CityDataService {
 
         while ((line = br.readLine()) !=null) {
             buffer.append(line);
-            System.out.println(line);
         }
 
         br.close();
