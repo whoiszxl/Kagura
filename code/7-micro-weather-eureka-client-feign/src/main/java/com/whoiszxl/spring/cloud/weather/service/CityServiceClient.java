@@ -1,0 +1,20 @@
+package com.whoiszxl.spring.cloud.weather.service;
+
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ * \* Created with IntelliJ IDEA.
+ * \* User: whoiszxl
+ * \* Date: 2018/2/3
+ * \* Description:
+ * \
+ */
+@FeignClient("ms-weather-city-eureka")
+public interface CityServiceClient {
+
+
+    @GetMapping("/city/list")
+    String listCity();
+
+}

@@ -49,16 +49,30 @@ ext {
 
 // 依赖关系
 dependencies {
-	// Eureka Server
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
-
 	
+	// HttpClient
+	compile('org.apache.httpcomponents:httpclient:4.5.3')
+
+	// Redis
+	compile('org.springframework.boot:spring-boot-starter-data-redis')
+
+	// Quartz
+	compile('org.springframework.boot:spring-boot-starter-quartz')
+
+	// 该依赖用于编译阶段
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	// Eureka Client
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+
 	// 该依赖用于测试阶段
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+
 }
 
-dependencyManagement {
 
+dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
